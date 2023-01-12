@@ -7,3 +7,6 @@
 .custom-bg-black {
   background-color: rgb(138, 105, 160);
 }
+.highlight {
+  filter: hue-rotate(45deg);
+}

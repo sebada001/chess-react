@@ -7,28 +7,28 @@ import Queen from "../pieces/Queen";
 import { letters } from "./gameboard";
 
 const classicPlacement = (board) => {
-  board["A1"].place(Rook("white", "left", "A1"));
-  board["B1"].place(Knight("white", "left", "B1"));
-  board["C1"].place(Bishop("white", "left", "C1"));
-  board["D1"].place(Queen("white", "D1"));
-  board["E1"].place(King("white", "E1"));
-  board["F1"].place(Bishop("white", "right", "F1"));
-  board["G1"].place(Knight("white", "right", "G1"));
-  board["H1"].place(Rook("white", "right", "H1"));
+  board["A1"]["piece"] = new Rook("white", "A1");
+  board["B1"]["piece"] = new Knight("white", "B1");
+  board["C1"]["piece"] = new Bishop("white", "C1");
+  board["D1"]["piece"] = new Queen("white", "D1");
+  board["E1"]["piece"] = new King("white", "E1");
+  board["F1"]["piece"] = new Bishop("white", "F1");
+  board["G1"]["piece"] = new Knight("white", "G1");
+  board["H1"]["piece"] = new Rook("white", "H1");
   letters.forEach((letter) => {
-    board[`${letter}2`].place(Pawn("white"));
+    board[`${letter}2`]["piece"] = new Pawn("white", `${letter}2`);
   });
 
-  board["A8"].place(Rook("black", "left", "A8"));
-  board["B8"].place(Knight("black", "left", "B8"));
-  board["C8"].place(Bishop("black", "left", "C8"));
-  board["D8"].place(Queen("black", "D8"));
-  board["E8"].place(King("black", "E8"));
-  board["F8"].place(Bishop("black", "right", "F8"));
-  board["G8"].place(Knight("black", "right", "G8"));
-  board["H8"].place(Rook("black", "right", "H8"));
+  board["A8"]["piece"] = new Rook("black", "A8");
+  board["B8"]["piece"] = new Knight("black", "B8");
+  board["C8"]["piece"] = new Bishop("black", "C8");
+  board["D8"]["piece"] = new Queen("black", "D8");
+  board["E8"]["piece"] = new King("black", "E8");
+  board["F8"]["piece"] = new Bishop("black", "F8");
+  board["G8"]["piece"] = new Knight("black", "G8");
+  board["H8"]["piece"] = new Rook("black", "H8");
   letters.forEach((letter) => {
-    board[`${letter}7`].place(Pawn("black"));
+    board[`${letter}7`]["piece"] = new Pawn("black", `${letter}7`);
   });
 };
 

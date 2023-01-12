@@ -11,28 +11,39 @@ function switchColor() {
     : (currentColor = "black");
 }
 
-const Square = (col, coordinate) => {
-  const squareColor = col;
-  const squareCoordinate = coordinate;
-  const squareId = nanoid();
-  let squarePiece = null;
+// const Square = (col, coordinate) => {
+//   const squareColor = col;
+//   const squareCoordinate = coordinate;
+//   const squareId = nanoid();
+//   let _highlight = "";
+//   let squarePiece = null;
 
-  const place = (p) => {
-    squarePiece = p;
-    p.position(squareCoordinate);
-  };
-  const clear = () => (squarePiece = null);
-  const color = () => squareColor;
-  const coord = () => squareCoordinate;
-  const id = () => squareId;
-  const piece = () => squarePiece;
-  return { place, clear, color, coord, id, piece };
-};
+//   const place = (p) => {
+//     squarePiece = p;
+//     p.position(squareCoordinate);
+//   };
+//   const clear = () => (squarePiece = null);
+//   const color = () => squareColor;
+//   const coord = () => squareCoordinate;
+//   const id = () => squareId;
+//   const piece = () => squarePiece;
+//   const switchHighlight = () =>
+//     (_highlight = _highlight === "" ? "highlight" : "");
+//   const highlight = () => _highlight;
+//   return { place, clear, color, coord, id, piece, highlight, switchHighlight };
+// };
 
 letters.forEach((L) => {
   switchColor();
   numbers.forEach((N) => {
-    gameboard[`${L}${N}`] = Square(currentColor, `${L}${N}`);
+    gameboard[`${L}${N}`] = {
+      color: currentColor,
+      coord: `${L}${N}`,
+      piece: "",
+      id: nanoid(),
+      highlight: "highlight",
+    };
+    // Square(currentColor, `${L}${N}`);
     switchColor();
   });
 });
