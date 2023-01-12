@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import gameboard, { boardArrays } from "../utility/gameboard";
+import classicPlacement from "../utility/classic_chess";
 import Pawn from "../pieces/Pawn";
 
 const displayPiece = (spot) => {
@@ -11,6 +12,8 @@ const displayPiece = (spot) => {
     ></img>
   );
 };
+
+classicPlacement(gameboard);
 
 export default function Gameboard() {
   const [board, setBoard] = useState(gameboard);
@@ -33,7 +36,6 @@ export default function Gameboard() {
             {arr.map((coord) => {
               return (
                 <div
-                  onClick={() => setter()}
                   key={board[coord].id()}
                   className={`${coord} rows flex grow basis-0 flex-row items-center justify-center custom-bg-${board[
                     coord

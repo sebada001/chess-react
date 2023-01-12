@@ -1,11 +1,13 @@
 import queen_dark from "../images/Chess_qdt45.svg";
 import queen_light from "../images/Chess_qlt45.svg";
 
-const Queen = (color) => {
+const Queen = (color, coord) => {
   let img = "";
   img = color === "black" ? queen_dark : queen_light;
   const display = () => img;
-  return { display };
+  let coordinate = coord;
+  const position = (pos) => (coordinate = pos);
+  return { display, position };
 };
 
 export default Queen;

@@ -19,13 +19,14 @@ const Square = (col, coordinate) => {
 
   const place = (p) => {
     squarePiece = p;
+    p.position(squareCoordinate);
   };
-  const move = () => (squarePiece = null);
+  const clear = () => (squarePiece = null);
   const color = () => squareColor;
   const coord = () => squareCoordinate;
   const id = () => squareId;
   const piece = () => squarePiece;
-  return { place, move, color, coord, id, piece };
+  return { place, clear, color, coord, id, piece };
 };
 
 letters.forEach((L) => {
