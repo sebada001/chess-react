@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 export default function Game() {
   const [currentPlayer, setCurrentPlayer] = useState(whitePlayer);
+  const [eatenPieces, setEatenPieces] = useState([]);
 
   const switchTurns = () => {
     let newPlayer =
@@ -11,5 +12,29 @@ export default function Game() {
     setCurrentPlayer(newPlayer);
   };
 
-  return <Gameboard currentPlayer={currentPlayer} switchTurns={switchTurns} />;
+  return (
+    <div className="flex flex-col">
+      <div className="my-2 flex min-h-[4em] w-[70vh] items-center justify-between">
+        <div className="flex grow items-center justify-start">
+          {eatenPieces
+            .filter((pie) => pie.color === "white")
+            .map((p) => {
+              return <img src={p.image} className="w-[8%]"></img>;
+            })}
+        </div>
+      </div>
+      <Gameboard
+        currentPlayer={currentPlayer}
+        switchTurns={switchTurns}
+        setEatenPieces={setEatenPieces}
+      />
+      <div className="my-2 flex grow items-center justify-start">
+        {eatenPieces
+          .filter((pie) => pie.color === "black")
+          .map((p) => {
+            return <img src={p.image} className="w-[8%]"></img>;
+          })}
+      </div>
+    </div>
+  );
 }

@@ -7,7 +7,7 @@ classicPlacement(gameboard);
 
 export default function Gameboard(props) {
   const [board, setBoard] = useState(gameboard);
-  const { switchTurns, currentPlayer } = props;
+  const { switchTurns, currentPlayer, setEatenPieces } = props;
   const [currentPiece, setCurrentPiece] = useState();
 
   const clearHighlights = () => {
@@ -33,9 +33,14 @@ export default function Gameboard(props) {
     if (spot.highlight !== "highlight") return;
 
     let boardCopy = { ...board };
+    if (boardCopy[coord].piece !== "") {
+      setEatenPieces((prev) => [...prev, boardCopy[coord].piece]);
+    }
     boardCopy[coord].piece = currentPiece;
     boardCopy[currentPiece.coord].piece = "";
+
     currentPiece.coord = spot.coord;
+    currentPiece.startingPosition = false;
 
     setBoard(boardCopy);
     setCurrentPiece(undefined);
@@ -44,7 +49,7 @@ export default function Gameboard(props) {
   };
 
   return (
-    <div className="gameboard flex h-[30vw] w-[30vw] bg-neutral-100">
+    <div className="gameboard flex h-[70vh] w-[70vh] bg-neutral-100">
       {boardArrays.map((arr, ind) => {
         return (
           <div

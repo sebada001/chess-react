@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { calculateMoves } from "../pieces/Pawn";
 
 export default function Piece(props) {
@@ -29,7 +29,7 @@ export default function Piece(props) {
     <div className={`${spot.piece.image}`}>
       {
         <img
-          className="flex h-3/4 basis-0"
+          className="flex w-[4.5rem]"
           src={`${spot.piece.image}`}
           onClick={() => handlePlay(spot.piece, board)}
         ></img>
