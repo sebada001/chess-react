@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import { calculateMoves } from "../pieces/Pawn";
 
 export default function Piece(props) {
-  const { board, spot } = props;
-  const displayPiece = (spot) => {
-    if (spot.piece.image === null || spot.piece.image === undefined)
-      return null;
-    return (
-      <img className="flex h-3/4 basis-0" src={`${spot?.piece.image}`}></img>
-    );
+  const {
+    board,
+    spot,
+    highlightSpot,
+    clearHighlights,
+    currentPiece,
+    setCurrentPiece,
+  } = props;
+
+  const highlightMoves = (piece, board) => {
+    if (currentPiece !== piece) {
+      clearHighlights();
+    }
+    let moves = calculateMoves[piece.type](piece, board);
+    highlightSpot(moves);
   };
-  return <div className={`${spot.piece.image}`}>{displayPiece(spot)}</div>;
+  const handlePlay = (piece) => {
+    setCurrentPiece(piece);
+    highlightMoves(piece, board);
+  };
+
+  return (
+    <div className={`${spot.piece.image}`}>
+      {
+        <img
+          className="flex h-3/4 basis-0"
+          src={`${spot.piece.image}`}
+          onClick={() => handlePlay(spot.piece, board)}
+        ></img>
+      }
+    </div>
+  );
 }

@@ -7,16 +7,24 @@ classicPlacement(gameboard);
 
 export default function Gameboard() {
   const [board, setBoard] = useState(gameboard);
+  const [currentPiece, setCurrentPiece] = useState();
 
-  const highlightSpot = (coord) => {
-    let val = board[coord].highlight === "" ? "highlight" : "";
-    console.log(val);
-    setBoard({
-      ...board,
-      coord: {
-        highlight: val,
-      },
+  const clearHighlights = () => {
+    let boardCopy = { ...board };
+    for (let key in boardCopy) {
+      boardCopy[key].highlight = "";
+    }
+    setBoard(boardCopy);
+  };
+
+  const highlightSpot = (coords) => {
+    let boardCopy = { ...board };
+    coords.forEach((coord) => {
+      let spotCopy = { ...board[coord] };
+      spotCopy.highlight = spotCopy.highlight === "" ? "highlight" : "";
+      boardCopy[coord] = spotCopy;
     });
+    setBoard(boardCopy);
   };
 
   return (
@@ -24,19 +32,26 @@ export default function Gameboard() {
       {boardArrays.map((arr, ind) => {
         return (
           <div
-            className="columns flex grow basis-0 flex-col bg-violet-400/10"
+            className={`columns flex grow basis-0 flex-col bg-violet-400/10`}
             key={`container-${ind}`}
           >
             {arr.map((coord) => {
               const spot = board[coord];
               return (
                 <div
-                  onClick={() => highlightSpot(coord)}
+                  // onClick={() => highlightSpot(coord)}
                   key={spot.id}
                   className={`${coord} rows flex grow basis-0 flex-row items-center justify-center custom-bg-${spot.color} ${spot.highlight}`}
                 >
-                  {spot?.piece === null || spot?.piece === undefined || (
-                    <Piece board={board} spot={spot} />
+                  {spot?.piece && (
+                    <Piece
+                      board={board}
+                      spot={spot}
+                      highlightSpot={highlightSpot}
+                      clearHighlights={clearHighlights}
+                      currentPiece={currentPiece}
+                      setCurrentPiece={setCurrentPiece}
+                    />
                   )}
                 </div>
               );

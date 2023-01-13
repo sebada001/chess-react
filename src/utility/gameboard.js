@@ -11,28 +11,6 @@ function switchColor() {
     : (currentColor = "black");
 }
 
-// const Square = (col, coordinate) => {
-//   const squareColor = col;
-//   const squareCoordinate = coordinate;
-//   const squareId = nanoid();
-//   let _highlight = "";
-//   let squarePiece = null;
-
-//   const place = (p) => {
-//     squarePiece = p;
-//     p.position(squareCoordinate);
-//   };
-//   const clear = () => (squarePiece = null);
-//   const color = () => squareColor;
-//   const coord = () => squareCoordinate;
-//   const id = () => squareId;
-//   const piece = () => squarePiece;
-//   const switchHighlight = () =>
-//     (_highlight = _highlight === "" ? "highlight" : "");
-//   const highlight = () => _highlight;
-//   return { place, clear, color, coord, id, piece, highlight, switchHighlight };
-// };
-
 letters.forEach((L) => {
   switchColor();
   numbers.forEach((N) => {
@@ -41,9 +19,8 @@ letters.forEach((L) => {
       coord: `${L}${N}`,
       piece: "",
       id: nanoid(),
-      highlight: "highlight",
+      highlight: "",
     };
-    // Square(currentColor, `${L}${N}`);
     switchColor();
   });
 });
