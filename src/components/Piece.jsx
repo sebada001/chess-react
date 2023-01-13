@@ -9,6 +9,7 @@ export default function Piece(props) {
     clearHighlights,
     currentPiece,
     setCurrentPiece,
+    currentPlayer,
   } = props;
 
   const highlightMoves = (piece, board) => {
@@ -19,6 +20,7 @@ export default function Piece(props) {
     highlightSpot(moves);
   };
   const handlePlay = (piece) => {
+    if (piece.color !== currentPlayer.color) return;
     setCurrentPiece(piece);
     highlightMoves(piece, board);
   };

@@ -5,8 +5,9 @@ import Piece from "./Piece";
 
 classicPlacement(gameboard);
 
-export default function Gameboard() {
+export default function Gameboard(props) {
   const [board, setBoard] = useState(gameboard);
+  const { switchTurns, currentPlayer } = props;
   const [currentPiece, setCurrentPiece] = useState();
 
   const clearHighlights = () => {
@@ -27,6 +28,21 @@ export default function Gameboard() {
     setBoard(boardCopy);
   };
 
+  const makeMove = (spot, coord) => {
+    if (currentPiece === undefined) return;
+    if (spot.highlight !== "highlight") return;
+
+    let boardCopy = { ...board };
+    boardCopy[coord].piece = currentPiece;
+    boardCopy[currentPiece.coord].piece = "";
+    currentPiece.coord = spot.coord;
+
+    setBoard(boardCopy);
+    setCurrentPiece(undefined);
+    clearHighlights();
+    switchTurns();
+  };
+
   return (
     <div className="gameboard flex h-[30vw] w-[30vw] bg-neutral-100">
       {boardArrays.map((arr, ind) => {
@@ -39,7 +55,7 @@ export default function Gameboard() {
               const spot = board[coord];
               return (
                 <div
-                  // onClick={() => highlightSpot(coord)}
+                  onClick={() => makeMove(spot, coord)}
                   key={spot.id}
                   className={`${coord} rows flex grow basis-0 flex-row items-center justify-center custom-bg-${spot.color} ${spot.highlight}`}
                 >
@@ -51,6 +67,7 @@ export default function Gameboard() {
                       clearHighlights={clearHighlights}
                       currentPiece={currentPiece}
                       setCurrentPiece={setCurrentPiece}
+                      currentPlayer={currentPlayer}
                     />
                   )}
                 </div>

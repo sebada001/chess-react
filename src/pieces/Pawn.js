@@ -32,16 +32,27 @@ const blackMoves = {
 
 function calculatePawnMoves(piece, board) {
   let allMoves = [];
+  let movements = [];
   let pieceMoves = piece.moves;
 
-  allMoves.push(convertMoves(piece.coord, pieceMoves["move"]));
+  //movements
+  movements.push(convertMoves(piece.coord, pieceMoves["move"]));
   if (piece.startingPosition === true) {
-    allMoves.push(convertMoves(piece.coord, pieceMoves["start"]));
+    movements.push(convertMoves(piece.coord, pieceMoves["start"]));
   }
-  let attacks = locatePawnEnemy(piece, board);
-  if (attacks) {
-    attacks.forEach((move) => allMoves.push(move));
+  movements = movements.filter((move) => !(move === undefined));
+  cleanObstaclesUpDown(board, movements, piece).forEach((move) =>
+    allMoves.push(move)
+  );
+
+  //attacks
+  let attackSpots = locatePawnEnemy(piece, board);
+  if (attackSpots) {
+    friendlyFire(board, attackSpots, piece).forEach((move) =>
+      allMoves.push(move)
+    );
   }
+
   return allMoves;
 }
 
@@ -51,23 +62,45 @@ function locatePawnEnemy(piece, board) {
     let spotLeft = board[convertMoves(piece.coord, [-1, 1])];
     let spotRight = board[convertMoves(piece.coord, [1, 1])];
     if (spotLeft !== undefined && spotLeft.piece) {
-      located.push(spotLeft);
+      located.push(spotLeft.coord);
     }
     if (spotRight !== undefined && spotRight.piece) {
-      located.push(spotRight);
+      located.push(spotRight.coord);
     }
   }
   if (piece.color === "black") {
     let spotLeft = board[convertMoves(piece.coord, [-1, -1])];
     let spotRight = board[convertMoves(piece.coord, [1, -1])];
     if (spotLeft !== undefined && spotLeft.piece) {
-      located.push(spotLeft);
+      located.push(spotLeft.coord);
     }
     if (spotRight !== undefined && spotRight.piece) {
-      located.push(spotRight);
+      located.push(spotRight.coord);
     }
   }
   return located;
+}
+
+function friendlyFire(board, moves, piece) {
+  return moves.filter((move) => board[move].piece?.color !== piece.color);
+}
+
+function cleanObstaclesUpDown(board, moves, piece) {
+  moves.forEach((move) => {
+    if (board[move].piece !== "") {
+      if (piece.color === "white") {
+        moves = moves.filter(
+          (mov) => !(mov[0] === move[0] && mov[1] >= move[1])
+        );
+      }
+      if (piece.color === "black") {
+        moves = moves.filter(
+          (mov) => !(mov[0] === move[0] && mov[1] <= move[1])
+        );
+      }
+    }
+  });
+  return moves;
 }
 
 const calculateMoves = {
