@@ -1,5 +1,5 @@
 import React from "react";
-import { calculateMoves } from "../pieces/Pawn";
+import { movesDict } from "../utility/moves_dict";
 
 export default function Piece(props) {
   const {
@@ -16,7 +16,7 @@ export default function Piece(props) {
     if (currentPiece !== piece) {
       clearHighlights();
     }
-    let moves = calculateMoves[piece.type](piece, board);
+    let moves = movesDict[piece.type](piece, board);
     highlightSpot(moves);
   };
   const handlePlay = (piece) => {

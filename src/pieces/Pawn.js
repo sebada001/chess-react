@@ -103,9 +103,5 @@ function cleanObstaclesUpDown(board, moves, piece) {
   return moves;
 }
 
-const calculateMoves = {
-  pawn: calculatePawnMoves,
-};
-
 export default Pawn;
-export { calculateMoves };
+export { calculatePawnMoves };

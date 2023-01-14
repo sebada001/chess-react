@@ -11,6 +11,11 @@ function switchColor() {
     : (currentColor = "black");
 }
 
+function lettersToNumbers(coord) {
+  const [L, N] = [coord[0], coord[1]];
+  return `${numbers[letters.findIndex((l) => l === L)]}${N}`;
+}
+
 letters.forEach((L) => {
   switchColor();
   numbers.forEach((N) => {
@@ -37,4 +42,4 @@ const boardArrays = [
 ];
 
 export default gameboard;
-export { letters, numbers, boardArrays };
+export { letters, numbers, boardArrays, lettersToNumbers };
