@@ -1,6 +1,7 @@
 import pawn_dark from "../images/Chess_pdt45.svg";
 import pawn_light from "../images/Chess_plt45.svg";
 import { convertMoves } from "../utility/convert_moves";
+import { diagonalMoves } from "../moves/diagonal_moves";
 
 function Pawn(color, coord) {
   this.type = "pawn";
@@ -52,6 +53,8 @@ function calculatePawnMoves(piece, board) {
       allMoves.push(move)
     );
   }
+
+  // console.log(diagonalMoves(piece.color, piece.type, piece.coord, board));
 
   return allMoves;
 }

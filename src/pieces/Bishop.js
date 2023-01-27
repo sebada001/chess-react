@@ -3,6 +3,7 @@ import bishop_light from "../images/Chess_blt45.svg";
 import { numbers } from "../utility/gameboard";
 import { convertMoves } from "../utility/convert_moves";
 import { lettersToNumbers } from "../utility/gameboard";
+import { diagonalMoves } from "../moves/diagonal_moves";
 
 function Bishop(color, coord) {
   this.type = "bishop";
@@ -70,6 +71,8 @@ function calculateBishopMoves(piece, board) {
   cleanObstaclesDiagonals(board, movements, piece, board).forEach((move) =>
     allMoves.push(move)
   );
+  console.log(diagonalMoves(piece.color, piece.type, piece.coord, board));
+  console.log(allMoves);
 
   return allMoves;
 }
