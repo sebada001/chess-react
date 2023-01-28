@@ -1,6 +1,27 @@
 import rook_dark from "../images/Chess_rdt45.svg";
 import rook_light from "../images/Chess_rlt45.svg";
 import { nanoid } from "nanoid";
+import { straightMoves, straightOpponents } from "../moves/straight_moves";
+
+function Rook(color, coord) {
+  this.color = color;
+  this.type = "rook";
+  this.coord = coord;
+  this.image = color === "black" ? rook_dark : rook_light;
+  this.id = nanoid();
+}
+
+function calculateRookMoves(piece, board) {
+  let allMoves = [];
+  let movements = [];
+  let attacks = [];
+
+  movements = straightMoves(piece.color, piece.type, piece.coord, board);
+  attacks = straightOpponents(piece.color, piece.type, piece.coord, board);
+  allMoves = [...movements, ...attacks];
+
+  return allMoves;
+}
 
 // const Rook = (color, pieceSide, coord) => {
 //   let img = "";
@@ -12,11 +33,5 @@ import { nanoid } from "nanoid";
 //   return { display, side, position };
 // };
 
-function Rook(color, coord) {
-  this.color = color;
-  this.coord = coord;
-  this.image = color === "black" ? rook_dark : rook_light;
-  this.id = nanoid();
-}
-
 export default Rook;
+export { calculateRookMoves };
