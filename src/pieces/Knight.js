@@ -15,6 +15,7 @@ function Knight(color, coord) {
   this.color = color;
   this.coord = coord;
   this.image = color === "black" ? knight_dark : knight_light;
+  this.id = nanoid();
 }
 
 export default Knight;

@@ -2,6 +2,7 @@ import pawn_dark from "../images/Chess_pdt45.svg";
 import pawn_light from "../images/Chess_plt45.svg";
 import { diagonalOpponents } from "../moves/diagonal_moves";
 import { straightMoves, pawnStart } from "../moves/straight_moves";
+import { nanoid } from "nanoid";
 
 function Pawn(color, coord) {
   this.type = "pawn";
@@ -10,6 +11,7 @@ function Pawn(color, coord) {
   this.image = color === "black" ? pawn_dark : pawn_light;
   this.direction = this.color === "black" ? "DOWN" : "UP";
   this.startingPosition = true;
+  this.id = nanoid();
 }
 
 function calculatePawnMoves(piece, board) {

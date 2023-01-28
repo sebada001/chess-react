@@ -14,6 +14,7 @@ function King(color, coord) {
   this.color = color;
   this.coord = coord;
   this.image = color === "black" ? king_dark : king_light;
+  this.id = nanoid();
 }
 
 export default King;

@@ -17,9 +17,9 @@ export default function Game() {
       <div className="my-2 flex min-h-[4em] w-[70vh] items-center justify-between">
         <div className="flex grow items-center justify-start">
           {eatenPieces
-            .filter((pie) => pie.color === "white")
+            .filter((piece) => piece.color === "white")
             .map((p) => {
-              return <img src={p.image} className="w-[8%]"></img>;
+              return <img src={p.image} className="w-[8%]" key={p.id}></img>;
             })}
         </div>
       </div>
@@ -30,9 +30,9 @@ export default function Game() {
       />
       <div className="my-2 flex grow items-center justify-start">
         {eatenPieces
-          .filter((pie) => pie.color === "black")
+          .filter((piece) => piece.color === "black")
           .map((p) => {
-            return <img src={p.image} className="w-[8%]"></img>;
+            return <img src={p.image} className="w-[8%]" key={p.id}></img>;
           })}
       </div>
     </div>

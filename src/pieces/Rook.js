@@ -15,6 +15,7 @@ function Rook(color, coord) {
   this.color = color;
   this.coord = coord;
   this.image = color === "black" ? rook_dark : rook_light;
+  this.id = nanoid();
 }
 
 export default Rook;

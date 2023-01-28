@@ -9,6 +9,7 @@ function Bishop(color, coord) {
   this.image = color === "black" ? bishop_dark : bishop_light;
   this.direction = this.color === "black" ? "down" : "up";
   this.startingPosition = true;
+  this.id = nanoid();
 }
 
 function calculateBishopMoves(piece, board) {

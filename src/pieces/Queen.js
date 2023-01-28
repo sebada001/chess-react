@@ -13,6 +13,7 @@ function Queen(color, coord) {
   this.color = color;
   this.coord = coord;
   this.image = color === "black" ? queen_dark : queen_light;
+  this.id = nanoid();
 }
 
 export default Queen;
