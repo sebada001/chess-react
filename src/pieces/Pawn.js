@@ -24,7 +24,7 @@ function calculatePawnMoves(piece, board) {
   allMoves = [...movements, ...attacks];
 
   if (piece.startingPosition === true) {
-    allMoves.push(pawnStart(piece.coord, piece.direction));
+    allMoves.push(pawnStart(piece.coord, piece.direction, board));
   }
 
   return allMoves;

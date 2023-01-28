@@ -3,14 +3,25 @@ import { isMovementLegal } from "./move_legality";
 import { numbers } from "../utility/gameboard";
 import { isAttackLegal, isBlocked } from "./move_legality";
 
-const pawnStart = (coords, dir) => {
+const pawnStart = (coords, dir, board) => {
   let f = coords[0];
   let s = Number(coords[1]);
+
   if (dir === "UP") {
-    return `${f}${s + 2}`;
+    if (
+      isMovementLegal(`${f}${s + 2}`, board) &&
+      isMovementLegal(`${f}${s + 1}`, board)
+    ) {
+      return `${f}${s + 2}`;
+    }
   }
   if (dir === "DOWN") {
-    return `${f}${s - 2}`;
+    if (
+      isMovementLegal(`${f}${s - 2}`, board) &&
+      isMovementLegal(`${f}${s - 1}`, board)
+    ) {
+      return `${f}${s - 2}`;
+    }
   }
 };
 
