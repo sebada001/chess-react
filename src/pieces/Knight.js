@@ -1,5 +1,6 @@
 import knight_dark from "../images/Chess_ndt45.svg";
 import knight_light from "../images/Chess_nlt45.svg";
+import { nanoid } from "nanoid";
 
 // const Knight = (color, pieceSide, coord) => {
 //   let img = "";

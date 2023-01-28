@@ -1,5 +1,6 @@
 import queen_dark from "../images/Chess_qdt45.svg";
 import queen_light from "../images/Chess_qlt45.svg";
+import { nanoid } from "nanoid";
 
 // const Queen = (color, coord) => {
 //   let img = "";

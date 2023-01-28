@@ -1,5 +1,6 @@
 import rook_dark from "../images/Chess_rdt45.svg";
 import rook_light from "../images/Chess_rlt45.svg";
+import { nanoid } from "nanoid";
 
 // const Rook = (color, pieceSide, coord) => {
 //   let img = "";

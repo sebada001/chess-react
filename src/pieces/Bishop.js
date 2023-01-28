@@ -1,6 +1,7 @@
 import bishop_dark from "../images/Chess_bdt45.svg";
 import bishop_light from "../images/Chess_blt45.svg";
 import { diagonalMoves, diagonalOpponents } from "../moves/diagonal_moves";
+import { nanoid } from "nanoid";
 
 function Bishop(color, coord) {
   this.type = "bishop";
