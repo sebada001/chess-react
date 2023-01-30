@@ -3,6 +3,7 @@ import king_light from "../images/Chess_klt45.svg";
 import { nanoid } from "nanoid";
 import { diagonalOpponents, diagonalMoves } from "../moves/diagonal_moves";
 import { straightMoves, straightOpponents } from "../moves/straight_moves";
+// import { inCheck } from "../moves/in_check";
 
 function King(color, coord) {
   this.color = color;
@@ -26,6 +27,8 @@ function calculateKingMoves(piece, board) {
     ...straightOpponents(piece.color, piece.type, piece.coord, board),
   ];
   allMoves = [...movements, ...attacks];
+
+  // console.log(inCheck(board, piece.color, piece));
 
   return allMoves;
 }

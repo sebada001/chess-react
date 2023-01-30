@@ -10,6 +10,7 @@ export default function Piece(props) {
     currentPiece,
     setCurrentPiece,
     currentPlayer,
+    playerInCheck,
   } = props;
 
   const highlightMoves = (piece, board) => {

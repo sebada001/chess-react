@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import gameboard, { boardArrays } from "../utility/gameboard";
 import classicPlacement from "../utility/classic_chess";
 import Piece from "./Piece";
+import { checkForChecks } from "../moves/in_check";
+import { findKing } from "../utility/find_king";
 
 classicPlacement(gameboard);
 
@@ -9,6 +11,26 @@ export default function Gameboard(props) {
   const [board, setBoard] = useState(gameboard);
   const { switchTurns, currentPlayer, setEatenPieces } = props;
   const [currentPiece, setCurrentPiece] = useState();
+  const [playerInCheck, setPlayerInCheck] = useState("");
+
+  const whiteKing = findKing(board, "white");
+  const blackKing = findKing(board, "black");
+
+  useEffect(() => {
+    if (currentPlayer.color === "white") {
+      if (checkForChecks(board, whiteKing.color, whiteKing)) {
+        setPlayerInCheck("white");
+      } else {
+        setPlayerInCheck("");
+      }
+    } else {
+      if (checkForChecks(board, blackKing.color, blackKing)) {
+        setPlayerInCheck("black");
+      } else {
+        setPlayerInCheck("");
+      }
+    }
+  }, [currentPlayer]);
 
   const clearHighlights = () => {
     let boardCopy = { ...board };
@@ -73,6 +95,7 @@ export default function Gameboard(props) {
                       currentPiece={currentPiece}
                       setCurrentPiece={setCurrentPiece}
                       currentPlayer={currentPlayer}
+                      playerInCheck={playerInCheck}
                     />
                   )}
                 </div>
