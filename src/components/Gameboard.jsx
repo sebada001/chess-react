@@ -32,8 +32,7 @@ export default function Gameboard(props) {
     }
   }, [currentPlayer]);
 
-  const clearHighlights = () => {
-    let boardCopy = { ...board };
+  const clearHighlights = (boardCopy) => {
     for (let key in boardCopy) {
       boardCopy[key].highlight = "";
     }
@@ -54,7 +53,10 @@ export default function Gameboard(props) {
     if (currentPiece === undefined) return;
     if (spot.highlight !== "highlight") return;
 
-    let boardCopy = { ...board };
+    let boardCopy = {};
+    for (let key in board) {
+      boardCopy[key] = { ...board[key] };
+    }
     if (boardCopy[coord].piece !== "") {
       setEatenPieces((prev) => [...prev, boardCopy[coord].piece]);
     }
@@ -66,8 +68,8 @@ export default function Gameboard(props) {
 
     setBoard(boardCopy);
     setCurrentPiece(undefined);
-    clearHighlights();
     switchTurns();
+    clearHighlights(boardCopy);
   };
 
   return (

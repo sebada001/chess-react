@@ -23,10 +23,10 @@ function calculatePawnMoves(piece, board) {
   attacks = diagonalOpponents(piece.color, piece.type, piece.coord, board);
   allMoves = [...movements, ...attacks];
 
-  if (piece.startingPosition === true) {
-    allMoves.push(pawnStart(piece.coord, piece.direction, board));
+  let doubleJump = pawnStart(piece.coord, piece.direction, board);
+  if (piece.startingPosition === true && doubleJump) {
+    allMoves.push(doubleJump);
   }
-
   return allMoves;
 }
 
