@@ -68,7 +68,7 @@ export default function Gameboard(props) {
 
     setBoard(boardCopy);
     setCurrentPiece(undefined);
-    switchTurns();
+    switchTurns(boardCopy);
     clearHighlights(boardCopy);
   };
 

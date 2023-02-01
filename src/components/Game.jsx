@@ -1,14 +1,20 @@
 import { blackPlayer, whitePlayer } from "../players/player";
 import Gameboard from "./Gameboard";
 import React, { useState } from "react";
+import { checkMate } from "../moves/in_check";
 
 export default function Game() {
   const [currentPlayer, setCurrentPlayer] = useState(whitePlayer);
   const [eatenPieces, setEatenPieces] = useState([]);
 
-  const switchTurns = () => {
+  const switchTurns = (board) => {
     let newPlayer =
       currentPlayer.color === "white" ? { ...blackPlayer } : { ...whitePlayer };
+    if (checkMate(board, currentPlayer, newPlayer)) {
+      alert(
+        `Checkmate! ${currentPlayer.color} player wins and ${newPlayer.color} player loses! `
+      );
+    }
     setCurrentPlayer(newPlayer);
   };
 

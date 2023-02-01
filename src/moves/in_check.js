@@ -56,4 +56,51 @@ const moveSafety = function (moves, board, piece, currentPlayer) {
   return allowedMoves;
 };
 
-export { inCheck, checkForChecks, moveSafety };
+const checkMate = function (board, player, opponent) {
+  const allMyMoves = [];
+  const allOpponentMoves = [];
+  const boardCopy = {};
+  for (let key in board) {
+    boardCopy[key] = { ...board[key] };
+  }
+
+  const myColor = player.color;
+  // const myKing = findKing(boardCopy, myColor);
+
+  const opponentColor = player.color === "white" ? "black" : "white";
+  const opponentKing = findKing(boardCopy, opponentColor);
+
+  const allMyPieces = getAllPieces(boardCopy, myColor);
+  allMyPieces.forEach((piece) => {
+    const moves = movesDict[piece.type](piece, boardCopy);
+    let safeMoves = moveSafety(moves, boardCopy, piece, player);
+    safeMoves.forEach((move) => {
+      allMyMoves.push(move);
+    });
+  });
+
+  const allOpponentPieces = getAllPieces(boardCopy, opponentColor);
+  allOpponentPieces.forEach((piece) => {
+    const moves = movesDict[piece.type](piece, boardCopy);
+    let safeMoves = moveSafety(moves, boardCopy, piece, opponent);
+    safeMoves.forEach((move) => {
+      allOpponentMoves.push(move);
+    });
+  });
+
+  if (allMyMoves.includes(opponentKing.coord) && allOpponentMoves.length === 0)
+    return true;
+  return false;
+};
+
+function getAllPieces(board, color) {
+  const pieces = [];
+  for (let key in board) {
+    if (board[key]?.piece && board[key]?.piece.color === color) {
+      pieces.push(board[key].piece);
+    }
+  }
+  return pieces;
+}
+
+export { inCheck, checkForChecks, moveSafety, checkMate };
