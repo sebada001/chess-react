@@ -32,31 +32,30 @@ export default function Gameboard(props) {
     }
   }, [currentPlayer]);
 
-  const clearHighlights = (boardCopy) => {
+  const clearHighlights = (board) => {
+    let boardCopy = structuredClone(board);
     for (let key in boardCopy) {
       boardCopy[key].highlight = "";
     }
-    setBoard(boardCopy);
+    return boardCopy;
   };
 
-  const highlightSpot = (coords) => {
-    let boardCopy = { ...board };
+  const highlightSpot = (coords, board) => {
+    let boardCopy = structuredClone(board);
     coords.forEach((coord) => {
-      let spotCopy = { ...board[coord] };
+      let spotCopy = structuredClone(boardCopy[coord]);
       spotCopy.highlight = spotCopy.highlight === "" ? "highlight" : "";
       boardCopy[coord] = spotCopy;
     });
-    setBoard(boardCopy);
+    return boardCopy;
   };
 
   const makeMove = (spot, coord) => {
     if (currentPiece === undefined) return;
     if (spot.highlight !== "highlight") return;
 
-    let boardCopy = {};
-    for (let key in board) {
-      boardCopy[key] = { ...board[key] };
-    }
+    let boardCopy = structuredClone(board);
+
     if (boardCopy[coord].piece !== "") {
       setEatenPieces((prev) => [...prev, boardCopy[coord].piece]);
     }
@@ -66,10 +65,11 @@ export default function Gameboard(props) {
     currentPiece.coord = spot.coord;
     currentPiece.startingPosition = false;
 
-    setBoard(boardCopy);
+    const clearedHighlights = clearHighlights(boardCopy);
+
+    setBoard(clearedHighlights);
     setCurrentPiece(undefined);
     switchTurns(boardCopy);
-    clearHighlights(boardCopy);
   };
 
   return (
@@ -91,6 +91,7 @@ export default function Gameboard(props) {
                   {spot?.piece && (
                     <Piece
                       board={board}
+                      setBoard={setBoard}
                       spot={spot}
                       highlightSpot={highlightSpot}
                       clearHighlights={clearHighlights}

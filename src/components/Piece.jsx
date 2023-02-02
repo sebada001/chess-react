@@ -11,22 +11,30 @@ export default function Piece(props) {
     currentPlayer,
     currentPiece,
     clearHighlights,
-    playerInCheck,
+    setBoard,
   } = props;
 
   const highlightMoves = (piece, board) => {
-    if (currentPiece !== piece) {
-      clearHighlights(board);
+    if (currentPiece?.id === piece.id) {
+      if (!Object.keys(board).every((spot) => board[spot].highlight === "")) {
+        setBoard(clearHighlights(board));
+        return;
+      }
     }
-    let moves = movesDict[piece.type](piece, board);
-    let safeMoves = moveSafety(moves, board, piece, currentPlayer); //moves that would not leave your king hanging
-    // console.log(moves);
-    // console.log(safeMoves);
-    highlightSpot(safeMoves);
+
+    const cleared = clearHighlights(board);
+    const moves = movesDict[piece.type](piece, cleared);
+    const safeMoves = moveSafety(moves, cleared, piece, currentPlayer); //moves that would not leave your king hanging
+    const highlighted = highlightSpot(safeMoves, cleared);
+
+    setBoard(highlighted);
   };
+
   const handlePlay = (piece) => {
     if (piece.color !== currentPlayer.color) return;
+
     setCurrentPiece(piece);
+
     highlightMoves(piece, board);
   };
 
