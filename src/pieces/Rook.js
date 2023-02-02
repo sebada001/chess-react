@@ -9,6 +9,7 @@ class Rook {
     this.type = "rook";
     this.coord = coord;
     this.image = color === "black" ? rook_dark : rook_light;
+    this.startingPosition = true;
     this.id = nanoid();
   }
 }

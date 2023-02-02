@@ -23,8 +23,16 @@ export default function Piece(props) {
     }
 
     const cleared = clearHighlights(board);
-    const moves = movesDict[piece.type](piece, cleared);
-    const safeMoves = moveSafety(moves, cleared, piece, currentPlayer); //moves that would not leave your king hanging
+
+    let moves;
+    if (piece.type === "king") {
+      // only if king check for castling, helps speed
+      moves = movesDict[piece.type](piece, cleared, true);
+    } else {
+      moves = movesDict[piece.type](piece, cleared);
+    }
+
+    const safeMoves = moveSafety(moves, cleared, piece, currentPlayer.color);
     const highlighted = highlightSpot(safeMoves, cleared);
 
     setBoard(highlighted);

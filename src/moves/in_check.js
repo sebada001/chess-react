@@ -1,5 +1,6 @@
 import { movesDict } from "../utility/moves_dict";
 import { findKing } from "../utility/find_king";
+import { getAllPieces } from "../utility/get_all_pieces";
 
 function inCheck(board, playerColor, playerKing) {
   let keys = Object.keys(board);
@@ -26,11 +27,11 @@ const checkForChecks = (board, color, king) => {
   return checked;
 };
 
-const moveSafety = function (moves, board, piece, currentPlayer) {
+const moveSafety = function (moves, board, piece, currentPlayerColor) {
   if (moves.includes(undefined)) return [];
   const pieceCopy = { ...piece };
   const boardCopy = structuredClone(board);
-  const color = currentPlayer.color;
+  const color = currentPlayerColor;
   let lastMove = pieceCopy.coord;
   const allowedMoves = [];
   const kingCopy = { ...findKing(boardCopy, color) };
@@ -38,7 +39,7 @@ const moveSafety = function (moves, board, piece, currentPlayer) {
   moves.forEach((move) => {
     boardCopy[move].piece = pieceCopy;
 
-    if (board[lastMove]?.piece?.color === currentPlayer.color) {
+    if (board[lastMove]?.piece?.color === currentPlayerColor) {
       boardCopy[lastMove].piece = "";
     } else {
       boardCopy[lastMove].piece = board[lastMove].piece;
@@ -87,15 +88,5 @@ const checkMate = function (board, player, opponent) {
     return true;
   return false;
 };
-
-function getAllPieces(board, color) {
-  const pieces = [];
-  for (let key in board) {
-    if (board[key]?.piece && board[key]?.piece.color === color) {
-      pieces.push(board[key].piece);
-    }
-  }
-  return pieces;
-}
 
 export { inCheck, checkForChecks, moveSafety, checkMate };
