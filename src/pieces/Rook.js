@@ -3,12 +3,14 @@ import rook_light from "../images/Chess_rlt45.svg";
 import { nanoid } from "nanoid";
 import { straightMoves, straightOpponents } from "../moves/straight_moves";
 
-function Rook(color, coord) {
-  this.color = color;
-  this.type = "rook";
-  this.coord = coord;
-  this.image = color === "black" ? rook_dark : rook_light;
-  this.id = nanoid();
+class Rook {
+  constructor(color, coord) {
+    this.color = color;
+    this.type = "rook";
+    this.coord = coord;
+    this.image = color === "black" ? rook_dark : rook_light;
+    this.id = nanoid();
+  }
 }
 
 function calculateRookMoves(piece, board) {

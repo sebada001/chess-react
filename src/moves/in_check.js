@@ -23,17 +23,13 @@ function inCheck(board, playerColor, playerKing) {
 
 const checkForChecks = (board, color, king) => {
   let checked = inCheck(board, color, king);
-  console.log(`${color} is in check: ${checked}`);
   return checked;
 };
 
 const moveSafety = function (moves, board, piece, currentPlayer) {
   if (moves.includes(undefined)) return [];
   const pieceCopy = { ...piece };
-  const boardCopy = {};
-  for (let key in board) {
-    boardCopy[key] = { ...board[key] };
-  } // 2 level deep copy of board
+  const boardCopy = structuredClone(board);
   const color = currentPlayer.color;
   let lastMove = pieceCopy.coord;
   const allowedMoves = [];
@@ -65,7 +61,6 @@ const checkMate = function (board, player, opponent) {
   }
 
   const myColor = player.color;
-  // const myKing = findKing(boardCopy, myColor);
 
   const opponentColor = player.color === "white" ? "black" : "white";
   const opponentKing = findKing(boardCopy, opponentColor);

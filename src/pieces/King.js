@@ -5,12 +5,14 @@ import { diagonalOpponents, diagonalMoves } from "../moves/diagonal_moves";
 import { straightMoves, straightOpponents } from "../moves/straight_moves";
 // import { inCheck } from "../moves/in_check";
 
-function King(color, coord) {
-  this.color = color;
-  this.type = "king";
-  this.coord = coord;
-  this.image = color === "black" ? king_dark : king_light;
-  this.id = nanoid();
+class King {
+  constructor(color, coord) {
+    this.color = color;
+    this.type = "king";
+    this.coord = coord;
+    this.image = color === "black" ? king_dark : king_light;
+    this.id = nanoid();
+  }
 }
 
 function calculateKingMoves(piece, board) {

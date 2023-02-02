@@ -4,14 +4,16 @@ import { diagonalOpponents } from "../moves/diagonal_moves";
 import { straightMoves, pawnStart } from "../moves/straight_moves";
 import { nanoid } from "nanoid";
 
-function Pawn(color, coord) {
-  this.type = "pawn";
-  this.color = color;
-  this.coord = coord;
-  this.image = color === "black" ? pawn_dark : pawn_light;
-  this.direction = this.color === "black" ? "DOWN" : "UP";
-  this.startingPosition = true;
-  this.id = nanoid();
+class Pawn {
+  constructor(color, coord) {
+    this.type = "pawn";
+    this.color = color;
+    this.coord = coord;
+    this.image = color === "black" ? pawn_dark : pawn_light;
+    this.direction = this.color === "black" ? "DOWN" : "UP";
+    this.startingPosition = true;
+    this.id = nanoid();
+  }
 }
 
 function calculatePawnMoves(piece, board) {

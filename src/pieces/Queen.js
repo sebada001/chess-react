@@ -4,12 +4,14 @@ import { diagonalOpponents, diagonalMoves } from "../moves/diagonal_moves";
 import { straightMoves, straightOpponents } from "../moves/straight_moves";
 import { nanoid } from "nanoid";
 
-function Queen(color, coord) {
-  this.color = color;
-  this.type = "queen";
-  this.coord = coord;
-  this.image = color === "black" ? queen_dark : queen_light;
-  this.id = nanoid();
+class Queen {
+  constructor(color, coord) {
+    this.color = color;
+    this.type = "queen";
+    this.coord = coord;
+    this.image = color === "black" ? queen_dark : queen_light;
+    this.id = nanoid();
+  }
 }
 
 function calculateQueenMoves(piece, board) {
