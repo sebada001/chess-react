@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import gameboard, { boardArrays } from "../utility/gameboard";
 import classicPlacement from "../utility/classic_chess";
 import Piece from "./Piece";
-import { findKing } from "../utility/find_king";
 import { usePlayerInCheck } from "../hooks/usePlayerInCheck";
-import { checkForCastling } from "../moves/check_for_castling";
+import { castlingCheck } from "../moves/check_for_castling";
+import { enPassantCheck } from "../moves/check_for_enpassant";
 
 classicPlacement(gameboard);
 
@@ -46,6 +46,7 @@ export default function Gameboard(props) {
     boardCopy[coord].piece = currentPiece;
     boardCopy[currentPiece.coord].piece = "";
 
+    enPassantClear(currentPiece, coord, boardCopy, board);
     currentPiece.coord = spot.coord;
     castlingCheck(currentPiece, boardCopy);
     currentPiece.startingPosition = false;
@@ -59,13 +60,10 @@ export default function Gameboard(props) {
     switchTurns(boardCopy);
   };
 
-  function castlingCheck(piece, boardCopy) {
-    const checkCastling = checkForCastling(piece);
-    if (checkCastling[0]) {
-      boardCopy[checkCastling[2]].piece = boardCopy[checkCastling[1]].piece;
-      boardCopy[checkCastling[1]].piece = "";
-      boardCopy[checkCastling[2]].piece.startingPosition = false;
-      boardCopy[checkCastling[2]].piece.coord = checkCastling[2];
+  function enPassantClear(currentPiece, coord, boardCopy, prevBoard) {
+    let EP = enPassantCheck(currentPiece, coord, boardCopy, prevBoard);
+    if (EP[0]) {
+      setEatenPieces((prev) => [...prev, EP[1]]);
     }
   }
 
@@ -88,6 +86,8 @@ export default function Gameboard(props) {
                   {spot?.piece && (
                     <Piece
                       board={board}
+                      currentBoardMove={currentBoardMove}
+                      boardHistory={boardHistory}
                       setBoard={setBoard}
                       spot={spot}
                       highlightSpot={highlightSpot}
@@ -95,7 +95,6 @@ export default function Gameboard(props) {
                       currentPiece={currentPiece}
                       setCurrentPiece={setCurrentPiece}
                       currentPlayer={currentPlayer}
-                      playerInCheck={playerInCheck}
                     />
                   )}
                 </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { movesDict } from "../utility/moves_dict";
 import { moveSafety } from "../moves/in_check";
+import { checkForEnPassant } from "../moves/check_for_enpassant";
 
 export default function Piece(props) {
   const {
@@ -12,6 +13,8 @@ export default function Piece(props) {
     currentPiece,
     clearHighlights,
     setBoard,
+    boardHistory,
+    currentBoardMove,
   } = props;
 
   const highlightMoves = (piece, board) => {
@@ -26,10 +29,16 @@ export default function Piece(props) {
 
     let moves;
     if (piece.type === "king") {
-      // only if king check for castling, helps speed
+      // only if king check for castling, helps performance
       moves = movesDict[piece.type](piece, cleared, true);
     } else {
       moves = movesDict[piece.type](piece, cleared);
+    }
+    if (piece.type === "pawn") {
+      let EP = checkForEnPassant(piece, board, boardHistory[currentBoardMove]);
+      if (EP[0]) {
+        moves.push(EP[1]);
+      }
     }
 
     const safeMoves = moveSafety(moves, cleared, piece, currentPlayer.color);

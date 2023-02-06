@@ -17,4 +17,14 @@ function checkForCastling(piece) {
   return [false];
 }
 
-export { checkForCastling };
+function castlingCheck(piece, boardCopy) {
+  const checkCastling = checkForCastling(piece);
+  if (checkCastling[0]) {
+    boardCopy[checkCastling[2]].piece = boardCopy[checkCastling[1]].piece;
+    boardCopy[checkCastling[1]].piece = "";
+    boardCopy[checkCastling[2]].piece.startingPosition = false;
+    boardCopy[checkCastling[2]].piece.coord = checkCastling[2];
+  }
+}
+
+export { castlingCheck };

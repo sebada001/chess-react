@@ -140,4 +140,4 @@ function getAttack(dir, tempPosition, board, color) {
   }
 }
 
-export { straightMoves, pawnStart, straightOpponents };
+export { straightMoves, pawnStart, straightOpponents, straightStep };

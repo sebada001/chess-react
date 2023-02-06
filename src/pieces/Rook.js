@@ -27,15 +27,5 @@ function calculateRookMoves(piece, board) {
   return allMoves;
 }
 
-// const Rook = (color, pieceSide, coord) => {
-//   let img = "";
-//   img = color === "black" ? rook_dark : rook_light;
-//   const display = () => img;
-//   const side = () => pieceSide;
-//   let coordinate = coord;
-//   const position = (pos) => (coordinate = pos);
-//   return { display, side, position };
-// };
-
 export default Rook;
 export { calculateRookMoves };
