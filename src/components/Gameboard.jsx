@@ -5,6 +5,8 @@ import Piece from "./Piece";
 import { usePlayerInCheck } from "../hooks/usePlayerInCheck";
 import { castlingCheck } from "../moves/check_for_castling";
 import { enPassantCheck } from "../moves/check_for_enpassant";
+import Promoting from "./Promoting";
+import { factoryDict } from "../utility/moves_dict";
 
 classicPlacement(gameboard);
 
@@ -12,9 +14,16 @@ export default function Gameboard(props) {
   const [boardHistory, setBoardHistory] = useState([gameboard]);
   const [currentBoardMove, setCurrentBoardMove] = useState(0);
   const [board, setBoard] = useState(gameboard);
-  const { switchTurns, currentPlayer, setEatenPieces } = props;
+  const {
+    switchTurns,
+    currentPlayer,
+    setEatenPieces,
+    setPromotion,
+    promotion,
+  } = props;
   const [currentPiece, setCurrentPiece] = useState();
   const playerInCheck = usePlayerInCheck(currentPlayer, board);
+  const [boardForPromotion, setBoardForPromotion] = useState(gameboard);
 
   const clearHighlights = (board) => {
     let boardCopy = structuredClone(board);
@@ -34,7 +43,7 @@ export default function Gameboard(props) {
     return boardCopy;
   };
 
-  const makeMove = (spot, coord) => {
+  const makeMove = async (spot, coord) => {
     if (currentPiece === undefined) return;
     if (spot.highlight !== "highlight") return;
 
@@ -53,12 +62,50 @@ export default function Gameboard(props) {
 
     const clearedHighlights = clearHighlights(boardCopy);
 
+    if (promotingCheck(currentPiece, clearedHighlights)) {
+      // setBoardHistory((curr) => [...curr, board]);
+      setBoard(clearedHighlights);
+      setCurrentBoardMove((curr) => curr + 1);
+      setCurrentPiece(undefined);
+      return;
+    }
+
     setBoardHistory((curr) => [...curr, board]);
     setBoard(clearedHighlights);
     setCurrentBoardMove((curr) => curr + 1);
     setCurrentPiece(undefined);
     switchTurns(boardCopy);
   };
+
+  function promotingCheck(currentPiece, clearedHighlights) {
+    if (currentPiece.type !== "pawn") return false;
+    if (currentPiece.color === "white" && currentPiece.coord[1] === "8") {
+      setBoardForPromotion(clearedHighlights);
+      setPromotion(currentPiece.coord);
+      return true;
+    }
+    if (currentPiece.color === "black" && currentPiece.coord[1] === "1") {
+      setBoardForPromotion(clearedHighlights);
+      setPromotion(currentPiece.coord);
+      return true;
+    }
+    return false;
+  }
+
+  function afterPromotion(currBoard, choice, coords) {
+    setPromotion("");
+    const queened = new factoryDict[choice](currentPlayer.color, coords);
+    currBoard[coords].piece = queened;
+    setBoardHistory((curr) => [...curr, board]);
+    setBoard(currBoard);
+    switchTurns(currBoard);
+    // setBoardHistory((curr) => [...curr, board]);
+    // setBoard(currBoard);
+    // setCurrentBoardMove((curr) => curr + 1);
+    // setCurrentPiece(undefined);
+    // switchTurns(currBoard);
+    // setPromotion(false);
+  }
 
   function enPassantClear(currentPiece, coord, boardCopy, prevBoard) {
     let EP = enPassantCheck(currentPiece, coord, boardCopy, prevBoard);
@@ -83,7 +130,7 @@ export default function Gameboard(props) {
                   key={spot.id}
                   className={`${coord} rows flex grow basis-0 flex-row items-center justify-center custom-bg-${spot.color} ${spot.highlight}`}
                 >
-                  {spot?.piece && (
+                  {spot?.piece && coord !== promotion && (
                     <Piece
                       board={board}
                       currentBoardMove={currentBoardMove}
@@ -95,6 +142,13 @@ export default function Gameboard(props) {
                       currentPiece={currentPiece}
                       setCurrentPiece={setCurrentPiece}
                       currentPlayer={currentPlayer}
+                    />
+                  )}
+                  {spot?.piece && coord === promotion && (
+                    <Promoting
+                      afterPromotion={afterPromotion}
+                      board={boardForPromotion}
+                      coords={coord}
                     />
                   )}
                 </div>

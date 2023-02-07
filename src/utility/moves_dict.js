@@ -1,9 +1,9 @@
-import { calculatePawnMoves } from "../pieces/Pawn";
-import { calculateBishopMoves } from "../pieces/Bishop";
+import Bishop, { calculateBishopMoves } from "../pieces/Bishop";
 import { calculateKingMoves } from "../pieces/King";
-import { calculateRookMoves } from "../pieces/Rook";
-import { calculateQueenMoves } from "../pieces/Queen";
-import { calculateKnightMoves } from "../pieces/Knight";
+import Rook, { calculateRookMoves } from "../pieces/Rook";
+import Queen, { calculateQueenMoves } from "../pieces/Queen";
+import Knight, { calculateKnightMoves } from "../pieces/Knight";
+import { calculatePawnMoves } from "../pieces/Pawn";
 
 const movesDict = {
   pawn: calculatePawnMoves,
@@ -13,4 +13,11 @@ const movesDict = {
   queen: calculateQueenMoves,
   knight: calculateKnightMoves,
 };
-export { movesDict };
+
+const factoryDict = {
+  bishop: Bishop,
+  rook: Rook,
+  queen: Queen,
+  knight: Knight,
+};
+export { movesDict, factoryDict };

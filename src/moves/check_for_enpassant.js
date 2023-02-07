@@ -17,9 +17,9 @@ function checkForEnPassant(pawn, currBoard, prevBoard) {
       straightStep(alphabeticToNumeric(pawn.coord), "RIGHT")
     );
     if (
-      prevBoard[left].piece?.type !== "pawn" &&
-      currBoard[left].piece?.type === "pawn" &&
-      currBoard[left].piece?.color !== pawn.color
+      prevBoard[left]?.piece?.type !== "pawn" &&
+      currBoard[left]?.piece?.type === "pawn" &&
+      currBoard[left]?.piece?.color !== pawn.color
     ) {
       if (pawn.color === "white") {
         move = numericToAlphabetic(
@@ -33,9 +33,9 @@ function checkForEnPassant(pawn, currBoard, prevBoard) {
       return [true, move];
     }
     if (
-      prevBoard[right].piece?.type !== "pawn" &&
-      currBoard[right].piece?.type === "pawn" &&
-      currBoard[right].piece?.color !== pawn.color
+      prevBoard[right]?.piece?.type !== "pawn" &&
+      currBoard[right]?.piece?.type === "pawn" &&
+      currBoard[right]?.piece?.color !== pawn.color
     ) {
       if (pawn.color === "white") {
         move = numericToAlphabetic(

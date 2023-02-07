@@ -2,10 +2,12 @@ import { blackPlayer, whitePlayer } from "../players/player";
 import Gameboard from "./Gameboard";
 import React, { useState } from "react";
 import { checkMate } from "../moves/in_check";
+import Promoting from "./Promoting";
 
 export default function Game() {
   const [currentPlayer, setCurrentPlayer] = useState(whitePlayer);
   const [eatenPieces, setEatenPieces] = useState([]);
+  const [promotion, setPromotion] = useState(false);
 
   const switchTurns = (board) => {
     let newPlayer =
@@ -33,6 +35,8 @@ export default function Game() {
         currentPlayer={currentPlayer}
         switchTurns={switchTurns}
         setEatenPieces={setEatenPieces}
+        promotion={promotion}
+        setPromotion={setPromotion}
       />
       <div className="my-2 flex grow items-center justify-start">
         {eatenPieces
