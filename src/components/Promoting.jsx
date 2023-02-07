@@ -12,28 +12,33 @@ export default function Promoting(props) {
   const { board, afterPromotion, coords, currentPlayer } = props;
 
   const handleClick = (e) => {
-    console.log(e.target);
     afterPromotion(board, e.target.getAttribute("data-type"), coords);
   };
 
   return (
-    <div onClick={handleClick} className="h-30 absolute w-64 bg-cyan-300">
-      {currentPlayer.color === "black" && (
-        <div>
-          <img src={queen_dark} data-type="queen"></img>
-          <img src={knight_dark} data-type="knight"></img>
-          <img src={bishop_dark} data-type="bishop"></img>
-          <img src={rook_dark} data-type="rook"></img>
-        </div>
-      )}
-      {currentPlayer.color === "white" && (
-        <div>
-          <img src={queen_light} data-type="queen"></img>
-          <img src={knight_light} data-type="knight"></img>
-          <img src={bishop_light} data-type="bishop"></img>
-          <img src={rook_light} data-type="rook"></img>
-        </div>
-      )}
+    <div>
+      <div className="absolute left-0 top-0 h-full w-full bg-gray-700 opacity-50"></div>
+      <div
+        onClick={handleClick}
+        className="absolute rounded-sm bg-purple-400 shadow-md shadow-gray-900"
+      >
+        {currentPlayer.color === "black" && (
+          <div className="h-30 flex w-64 flex-row">
+            <img src={queen_dark} data-type="queen"></img>
+            <img src={knight_dark} data-type="knight"></img>
+            <img src={bishop_dark} data-type="bishop"></img>
+            <img src={rook_dark} data-type="rook"></img>
+          </div>
+        )}
+        {currentPlayer.color === "white" && (
+          <div className="m-6 flex justify-evenly">
+            <img src={queen_light} data-type="queen"></img>
+            <img src={knight_light} data-type="knight"></img>
+            <img src={bishop_light} data-type="bishop"></img>
+            <img src={rook_light} data-type="rook"></img>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

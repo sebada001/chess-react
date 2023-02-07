@@ -24,7 +24,7 @@ function checkCastling(king, board) {
   }
 
   //left
-  if (!allyRooks.find((r) => r.initialCoord === rookLeft).startingPosition) {
+  if (!allyRooks.find((r) => r.initialCoord === rookLeft)?.startingPosition) {
     leftCastling = false;
   } else {
     if (
@@ -39,7 +39,7 @@ function checkCastling(king, board) {
   }
 
   //right
-  if (!allyRooks.find((r) => r.initialCoord === rookRight).startingPosition) {
+  if (!allyRooks.find((r) => r.initialCoord === rookRight)?.startingPosition) {
     rightCastling = false;
   } else {
     if (

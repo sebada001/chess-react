@@ -15,6 +15,7 @@ const classicPlacement = (board) => {
   board["F1"]["piece"] = new Bishop("white", "F1");
   board["G1"]["piece"] = new Knight("white", "G1");
   board["H1"]["piece"] = new Rook("white", "H1");
+  board["H6"]["piece"] = new Pawn("white", "H6");
   letters.forEach((letter) => {
     board[`${letter}2`]["piece"] = new Pawn("white", `${letter}2`);
   });
