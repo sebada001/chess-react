@@ -22,7 +22,7 @@ const classicPlacement = (board) => {
   board["A8"]["piece"] = new Rook("black", "A8");
   board["B8"]["piece"] = new Knight("black", "B8");
   board["C8"]["piece"] = new Bishop("black", "C8");
-  board["D8"]["piece"] = new Queen("black", "C4");
+  board["D8"]["piece"] = new Queen("black", "D8");
   board["E8"]["piece"] = new King("black", "E8");
   board["F8"]["piece"] = new Bishop("black", "F8");
   board["G8"]["piece"] = new Knight("black", "G8");

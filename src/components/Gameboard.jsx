@@ -99,12 +99,6 @@ export default function Gameboard(props) {
     setBoardHistory((curr) => [...curr, board]);
     setBoard(currBoard);
     switchTurns(currBoard);
-    // setBoardHistory((curr) => [...curr, board]);
-    // setBoard(currBoard);
-    // setCurrentBoardMove((curr) => curr + 1);
-    // setCurrentPiece(undefined);
-    // switchTurns(currBoard);
-    // setPromotion(false);
   }
 
   function enPassantClear(currentPiece, coord, boardCopy, prevBoard) {
@@ -149,6 +143,7 @@ export default function Gameboard(props) {
                       afterPromotion={afterPromotion}
                       board={boardForPromotion}
                       coords={coord}
+                      currentPlayer={currentPlayer}
                     />
                   )}
                 </div>
