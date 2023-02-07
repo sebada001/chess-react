@@ -107,7 +107,7 @@ export default function Gameboard(props) {
   }
 
   return (
-    <div className="gameboard flex h-[70vh] w-[70vh] bg-neutral-100">
+    <div className="gameboard flex h-[90vw] w-[90vw] bg-neutral-100 md:h-[70vh] md:w-[70vh]">
       {boardArrays.map((arr, ind) => {
         return (
           <div

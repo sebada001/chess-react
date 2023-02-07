@@ -33,7 +33,7 @@ export default function Game() {
   return (
     <div className="flex flex-col">
       {(!checkMateStatus && (
-        <div>
+        <div className="flex flex-col items-center justify-between ">
           <div className="my-2 flex min-h-[4em] w-[70vh] items-center justify-between">
             <div className="flex grow items-center justify-start">
               {eatenPieces
