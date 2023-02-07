@@ -24,7 +24,11 @@ export default function Promoting(props) {
       >
         {currentPlayer.color === "black" && (
           <div className="h-30 flex w-64 flex-row">
-            <img src={queen_dark} data-type="queen"></img>
+            <img
+              src={queen_dark}
+              data-type="queen"
+              className=" animate-pulse"
+            ></img>
             <img src={knight_dark} data-type="knight"></img>
             <img src={bishop_dark} data-type="bishop"></img>
             <img src={rook_dark} data-type="rook"></img>
@@ -32,10 +36,26 @@ export default function Promoting(props) {
         )}
         {currentPlayer.color === "white" && (
           <div className="m-6 flex justify-evenly">
-            <img src={queen_light} data-type="queen"></img>
-            <img src={knight_light} data-type="knight"></img>
-            <img src={bishop_light} data-type="bishop"></img>
-            <img src={rook_light} data-type="rook"></img>
+            <img
+              src={queen_light}
+              data-type="queen"
+              className=" animate-pulse"
+            ></img>
+            <img
+              src={knight_light}
+              data-type="knight"
+              className=" animate-pulse"
+            ></img>
+            <img
+              src={bishop_light}
+              data-type="bishop"
+              className=" animate-pulse"
+            ></img>
+            <img
+              src={rook_light}
+              data-type="rook"
+              className=" animate-pulse"
+            ></img>
           </div>
         )}
       </div>

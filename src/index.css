@@ -10,3 +10,6 @@
 .highlight {
   filter: hue-rotate(45deg);
 }
+.animate-pulse {
+  animation-iteration-count: 1;
+}

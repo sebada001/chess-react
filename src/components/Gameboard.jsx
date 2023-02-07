@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import gameboard, { boardArrays } from "../utility/gameboard";
-import classicPlacement from "../utility/classic_chess";
+import { boardArrays } from "../utility/gameboard";
 import Piece from "./Piece";
 import { usePlayerInCheck } from "../hooks/usePlayerInCheck";
 import { castlingCheck } from "../moves/check_for_castling";
@@ -8,19 +7,18 @@ import { enPassantCheck } from "../moves/check_for_enpassant";
 import Promoting from "./Promoting";
 import { factoryDict } from "../utility/moves_dict";
 
-classicPlacement(gameboard);
-
 export default function Gameboard(props) {
-  const [boardHistory, setBoardHistory] = useState([gameboard]);
-  const [currentBoardMove, setCurrentBoardMove] = useState(0);
-  const [board, setBoard] = useState(gameboard);
   const {
     switchTurns,
     currentPlayer,
     setEatenPieces,
     setPromotion,
     promotion,
+    gameboard,
   } = props;
+  const [boardHistory, setBoardHistory] = useState([gameboard]);
+  const [currentBoardMove, setCurrentBoardMove] = useState(0);
+  const [board, setBoard] = useState(gameboard);
   const [currentPiece, setCurrentPiece] = useState();
   const playerInCheck = usePlayerInCheck(currentPlayer, board);
   const [boardForPromotion, setBoardForPromotion] = useState(gameboard);

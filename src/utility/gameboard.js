@@ -1,9 +1,10 @@
 import { nanoid } from "nanoid";
+import classicPlacement from "./classic_chess";
 const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
 let currentColor = "white";
 
-const gameboard = {};
+const gameboardStart = {};
 
 function switchColor() {
   currentColor === "black"
@@ -19,7 +20,7 @@ function lettersToNumbers(coord) {
 letters.forEach((L) => {
   switchColor();
   numbers.forEach((N) => {
-    gameboard[`${L}${N}`] = {
+    gameboardStart[`${L}${N}`] = {
       color: currentColor,
       coord: `${L}${N}`,
       piece: "",
@@ -40,6 +41,8 @@ const boardArrays = [
   ["G8", "G7", "G6", "G5", "G4", "G3", "G2", "G1"],
   ["H8", "H7", "H6", "H5", "H4", "H3", "H2", "H1"],
 ];
+
+const gameboard = () => classicPlacement(gameboardStart);
 
 export default gameboard;
 export { letters, numbers, boardArrays, lettersToNumbers };

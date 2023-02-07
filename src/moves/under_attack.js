@@ -1,6 +1,7 @@
 import { straightOpponents } from "./straight_moves";
 import { diagonalOpponents } from "./diagonal_moves";
 import { getAllPieces } from "../utility/get_all_pieces";
+import lSteps from "./knight_moves";
 
 function underAttack(spot, board, color) {
   const enemyPieces = getAllPieces(
@@ -9,6 +10,12 @@ function underAttack(spot, board, color) {
   );
   const enemyLocations = enemyPieces.map((piece) => {
     return { coord: piece.coord, type: piece.type };
+  });
+  const knights = enemyPieces.filter((piece) => piece.type === "knight");
+  let knightAttacks = [];
+  knights.forEach((knight) => {
+    let knightMoves = lSteps(knight.coord, board, knight.color);
+    knightAttacks = [...knightAttacks, ...knightMoves];
   });
   let diagAttacks = diagonalOpponents(color, "queen", spot, board);
   let straightAttacks = straightOpponents(color, "rook", spot, board);
@@ -34,6 +41,9 @@ function underAttack(spot, board, color) {
       return true;
     }
     if (dangerKing.includes(enemy.coord) && enemy.type === "king") {
+      return true;
+    }
+    if (knightAttacks.includes(enemy.coord) && enemy.type === "knight") {
       return true;
     }
   }
