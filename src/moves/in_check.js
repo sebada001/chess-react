@@ -11,8 +11,8 @@ function inCheck(board, playerColor, playerKing) {
     if (color && color !== playerColor) {
       let piece = board[coord].piece;
       let pieceMoves = movesDict[piece.type](piece, board);
-      if (piece.type === "queen") {
-      }
+      // if (piece.type === "queen") {
+      // }
       if (pieceMoves.includes(playerKing.coord)) {
         return true;
       }
@@ -56,14 +56,10 @@ const moveSafety = function (moves, board, piece, currentPlayerColor) {
 const checkMate = function (board, player, opponent) {
   const allMyMoves = [];
   const allOpponentMoves = [];
-  const boardCopy = {};
-  for (let key in board) {
-    boardCopy[key] = { ...board[key] };
-  }
-
+  const boardCopy = structuredClone(board);
   const myColor = player.color;
 
-  const opponentColor = player.color === "white" ? "black" : "white";
+  const opponentColor = opponent.color;
   const opponentKing = findKing(boardCopy, opponentColor);
 
   const allMyPieces = getAllPieces(boardCopy, myColor);
@@ -78,12 +74,11 @@ const checkMate = function (board, player, opponent) {
   const allOpponentPieces = getAllPieces(boardCopy, opponentColor);
   allOpponentPieces.forEach((piece) => {
     const moves = movesDict[piece.type](piece, boardCopy);
-    let safeMoves = moveSafety(moves, boardCopy, piece, opponent);
+    let safeMoves = moveSafety(moves, boardCopy, piece, opponent.color);
     safeMoves.forEach((move) => {
       allOpponentMoves.push(move);
     });
   });
-
   if (allMyMoves.includes(opponentKing.coord) && allOpponentMoves.length === 0)
     return true;
   return false;

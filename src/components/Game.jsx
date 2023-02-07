@@ -2,7 +2,6 @@ import { blackPlayer, whitePlayer } from "../players/player";
 import Gameboard from "./Gameboard";
 import React, { useState } from "react";
 import { checkMate } from "../moves/in_check";
-import Promoting from "./Promoting";
 
 export default function Game() {
   const [currentPlayer, setCurrentPlayer] = useState(whitePlayer);
